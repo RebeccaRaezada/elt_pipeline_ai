@@ -1,3 +1,10 @@
+
+Airflow final screen:
+<img width="2998" height="1616" alt="image" src="https://github.com/user-attachments/assets/0093fcf1-4958-4631-a57f-932017dec4ad" />
+
+Final UI rendered from analysis
+<img width="1818" height="1646" alt="image" src="https://github.com/user-attachments/assets/108e03aa-d407-43f2-b5a7-1424229c1da4" />
+
 # elt-pipeline-ai
 
 An end-to-end ELT pipeline built to answer a real question: **how did California K-12 student performance change before and after the pandemic?**
