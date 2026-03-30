@@ -14,9 +14,21 @@ def extract_enrollment(grade: int, year: int = 2022) -> list[dict]:
     url = f"https://educationdata.urban.org/api/v1/schools/ccd/enrollment/{year}/grade-{grade}/"
     params = {"fips": FIPS_CA, "limit": 500}
     rows = []
+    retries = 3
+
     while url:
-        r = requests.get(url, params=params)
-        r.raise_for_status()
+        for attempt in range(retries):
+            try:
+                r = requests.get(url, params=params, timeout=60)
+                r.raise_for_status()
+                break
+            except requests.exceptions.RequestException as e:
+                if attempt < retries - 1:
+                    print(f"Attempt {attempt + 1} failed: {e}. Retrying...")
+                    import time
+                    time.sleep(5)
+                else:
+                    raise
         data = r.json()
         for rec in data["results"]:
             rows.append({
