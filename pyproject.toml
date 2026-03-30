@@ -11,7 +11,8 @@ dependencies = [
     "psycopg2-binary (>=2.9.11,<3.0.0)",
     "requests (>=2.33.0,<3.0.0)",
     "python-dotenv (>=1.2.2,<2.0.0)",
-    "anthropic (>=0.86.0,<0.87.0)"
+    "anthropic (>=0.86.0,<0.87.0)",
+    "dbt-postgres (>=1.10.0,<2.0.0)"
 ]
 
 

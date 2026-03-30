@@ -1,4 +1,34 @@
 version: "3.8"
+
+x-airflow-common: &airflow-common
+  image: apache/airflow:2.10.4
+  environment:
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://elt_user:elt_pass@postgres/elt_db
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
+    _PIP_ADDITIONAL_REQUIREMENTS: 'requests python-dotenv psycopg2-binary dbt-core dbt-postgres'
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: 5432
+    POSTGRES_DB: elt_db
+    POSTGRES_USER: elt_user
+    POSTGRES_PASSWORD: elt_pass
+    DBT_PROFILES_DIR: /opt/airflow/.dbt
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - ./airflow/logs:/opt/airflow/logs
+    - ./extract:/opt/airflow/extract
+    - ./load:/opt/airflow/load
+    - ./dbt_project:/opt/airflow/dbt_project
+    - ./.env:/opt/airflow/.env
+    - ./dbt_project/elt_k12/profiles.yml:/opt/airflow/.dbt/profiles.yml
+    - ./llm:/opt/airflow/llm
+  depends_on:
+    postgres:
+      condition: service_healthy
+
 services:
   postgres:
     image: postgres:15
@@ -10,5 +40,39 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "elt_user", "-d", "elt_db"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db init &&
+        airflow users create \
+          --username admin \
+          --password admin \
+          --firstname Rebecca \
+          --lastname Raezada \
+          --role Admin \
+          --email rebecca@elt-pipeline-ai.com
+    restart: on-failure
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"
+    restart: always
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: always
+
 volumes:
   pgdata:
