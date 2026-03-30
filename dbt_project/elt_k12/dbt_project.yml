@@ -37,3 +37,27 @@ models:
     marts:
       +materialized: table
       +schema: marts
+
+seeds:
+  elt_k12:
+    +schema: public
+    raw_enrollment:
+      +column_types:
+        id: integer
+        year: integer
+        ncessch: varchar(20)
+        leaid: varchar(20)
+        grade: integer
+        race: integer
+        sex: integer
+        enrollment: integer
+        fips: integer
+        extracted_at: date
+    raw_assessments:
+      +column_types:
+        id: integer
+        year: integer
+        grade: integer
+        avg_score: float
+        std_error: float
+        extracted_at: date

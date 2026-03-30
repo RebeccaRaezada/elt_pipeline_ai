@@ -1,0 +1,12 @@
+elt_k12:
+  outputs:
+    dev:
+      type: postgres
+      host: postgres
+      port: 5432
+      user: elt_user
+      pass: elt_pass
+      dbname: elt_db
+      schema: k12
+      threads: 4
+  target: dev
