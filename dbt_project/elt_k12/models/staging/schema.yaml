@@ -31,3 +31,11 @@ models:
           - accepted_values:
               arguments:
                 values: ['CA']
+
+      - name: enrollment
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 10000
