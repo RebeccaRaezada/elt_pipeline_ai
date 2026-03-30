@@ -1,3 +1,10 @@
+Final UI rendred from analysed dataset.
+<img width="1818" height="1646" alt="image" src="https://github.com/user-attachments/assets/f8a38bd6-a527-4fc3-9f80-72e21b04d2a1" />
+
+AIrflow Snapshot with successful DAG flow.
+<img width="2998" height="1616" alt="image" src="https://github.com/user-attachments/assets/8b2f5431-f0fd-4ee6-9190-4ea48ccd1c18" />
+
+
 # elt-pipeline-ai
 
 An end-to-end ELT pipeline built to answer a real question: **how did California K-12 student performance change before and after the pandemic?**
