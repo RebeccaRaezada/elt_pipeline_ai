@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: public
+    tables:
+      - name: raw_enrollment
+        description: "Raw K-12 enrollment data from Urban Institute CCD API"
+      - name: raw_assessments
+        description: "Raw NAEP assessment scores from nationsreportcard.gov"

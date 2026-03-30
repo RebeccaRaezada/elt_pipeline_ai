@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: stg_enrollment
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: enrollment
+        tests: [not_null]
+      - name: grade
+        tests:
+          - accepted_values:
+              arguments:
+                values: [4, 8]
+      - name: year
+        tests: [not_null]
+
+  - name: stg_assessments
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: avg_score
+        tests: [not_null]
+      - name: subject
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['MAT', 'RED']
+      - name: jurisdiction
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['CA']
