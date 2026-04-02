@@ -1,3 +1,6 @@
+AI chat in UI
+<img width="3006" height="1254" alt="image" src="https://github.com/user-attachments/assets/71e971d8-fe28-4a77-a34b-936659383e4b" />
+
 Final UI rendred from analysed dataset.
 <img width="1818" height="1646" alt="image" src="https://github.com/user-attachments/assets/f8a38bd6-a527-4fc3-9f80-72e21b04d2a1" />
 
